@@ -1,0 +1,67 @@
+﻿@model List<LTWeb05_Bai03.Models.SanPham>
+
+@{
+    ViewBag.Title = "Tìm kiếm sản phẩm";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+</head>
+<body>
+    <h2 class="fw-bold text-center mt-3" style="color: blue">TÌM KIẾM SẢN PHẨM</h2>
+
+    <form method="get" action="@Url.Action("TimKiemSanPham", "SanPham")" class="d-flex mb-3 ms-1">
+        <input type="text" name="keyword" value="@Request["keyword"]" class="form-control me-2" placeholder="Nhập tên sản phẩm..." />
+        <button type="submit" class="btn btn-primary">SEARCH</button>
+    </form>
+
+    <table class="table table-bordered table-striped border">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>Hình SP</th>
+                <th>Mã SP</th>
+                <th>Tên SP</th>
+                <th>Đường dẫn</th>
+                <th>Giá</th>
+                <th>Mô tả</th>
+                <th>Mã loại</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="7" class="text-center text-danger">Không tìm thấy sản phẩm nào!</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/Images/@item.DuongDan" alt="@item.TenSP" style="width:60px; height:60px; object-fit:cover;" />
+                        </td>
+                        <td>@item.MaSP</td>
+                        <td>@item.TenSP</td>
+                        <td>@item.DuongDan</td>
+                        <td>@item.Gia</td>
+                        <td>@item.MoTa</td>
+                        <td>@item.MaLoai</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <p class="fw-bold text-center">
+        Tổng số sản phẩm: @Model.Count
+    </p>
+</body>
+</html>

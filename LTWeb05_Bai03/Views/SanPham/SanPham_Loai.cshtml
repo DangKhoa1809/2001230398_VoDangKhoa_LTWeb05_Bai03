@@ -1,0 +1,74 @@
+﻿@model List<LTWeb05_Bai03.Models.SanPham>
+
+@{
+    ViewBag.Title = "Danh sách sản phẩm theo loại";
+    var dsLoai = ViewBag.Loai as List<LTWeb05_Bai03.Models.Loai>;
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+</head>
+<body>
+    <h2 class="fw-bold text-center mt-3" style="color: blue">DANH SÁCH SẢN PHẨM THEO LOẠI</h2>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-3">
+                <h4 class="text-danger fw-bold">Danh mục loại</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="/SanPham/SanPham_Loai" class="text-decoration-none">Tất cả</a>
+                    </li>
+                    @foreach (var loai in dsLoai)
+                    {
+                        <li class="list-group-item">
+                            <a href="/SanPham/SanPham_Loai?maloai=@loai.MaLoai" class="text-decoration-none">
+                                @loai.TenLoai
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="col-9">
+                <table class="table table-striped border">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                            <th>Mã sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Hình ảnh</th>
+                            <th>Giá</th>
+                            <th>Mô tả</th>
+                            <th>Mã loại</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.MaSP</td>
+                                <td>@item.TenSP</td>
+                                <td>
+                                    <img src="~/Images/@item.DuongDan" alt="@item.TenSP" style="width:60px; height:60px; object-fit:cover;" />
+                                </td>
+                                <td>@item.Gia</td>
+                                <td>@item.MoTa</td>
+                                <td>@item.MaLoai</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

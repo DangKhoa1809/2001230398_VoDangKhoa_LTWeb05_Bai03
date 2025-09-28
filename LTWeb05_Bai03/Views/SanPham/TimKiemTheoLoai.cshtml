@@ -1,0 +1,62 @@
+﻿@model List<LTWeb05_Bai03.Models.SanPham>
+
+@{
+    ViewBag.Title = "Tìm kiếm theo loại";
+    var dsLoai = ViewBag.Loai as List<LTWeb05_Bai03.Models.Loai>;
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+</head>
+<body class="container mt-4">
+
+    <h2 class="text-primary fw-bold text-center mt-3 mb-4">PRODUCT BY CATEGORY</h2>
+
+    <form method="get" action="@Url.Action("TimKiemTheoLoai", "SanPham")" class="text-center">
+        <label for="maloai" class="fw-bold">Choose a Category</label>
+        <select id="maloai" name="maloai" class="form-select d-inline-block w-auto mx-2">
+            <option value="">-- Chọn loại --</option>
+            @foreach (var loai in dsLoai)
+            {
+                <option value="@loai.MaLoai">@loai.TenLoai</option>
+            }
+        </select>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>Hình sản phẩm</th>
+                <th>Mã sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Đường dẫn</th>
+                <th>Giá</th>
+                <th>Mô tả</th>
+                <th>Mã loại</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sp in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/Images/@sp.DuongDan" alt="@sp.TenSP" style="width:60px; height:60px; object-fit:cover;" />
+                    </td>
+                    <td>@sp.MaSP</td>
+                    <td>@sp.TenSP</td>
+                    <td>@sp.DuongDan</td>
+                    <td>@sp.Gia</td>
+                    <td>@sp.MoTa</td>
+                    <td>@sp.MaLoai</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
